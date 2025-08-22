@@ -38,6 +38,6 @@ class LocationsController extends StateNotifier<LocationsState> {
 
 final locationsControllerProvider =
     StateNotifierProvider<LocationsController, LocationsState>((ref) {
-  final service = ref.read(managerApiMockProvider);
+  final service = ref.read(managerApiProvider);
   return LocationsController(service);
 });

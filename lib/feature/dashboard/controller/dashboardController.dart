@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tz_dashboard/core/di/di.dart';
 // import 'package:tz_dashboard/core/di/di.dart';
 import 'package:tz_dashboard/service/endoints/collection/managerapi.dart';
 import 'package:tz_dashboard/service/endoints/collection/managerapi_providers.dart';
@@ -32,7 +33,7 @@ class DashboardController extends StateNotifier<DashboardState> {
   Future<void> loadDashboard({String? period}) async {
     state = state.copyWith(loading: true);
     try {
-      final data = await service.getDashboard(period: period);
+      final data = await service.getDashboard();
       state = state.copyWith(loading: false, dashboard: data);
     } catch (e) {
       state = state.copyWith(loading: false, error: e.toString());
@@ -47,7 +48,7 @@ class DashboardController extends StateNotifier<DashboardState> {
 
 final dashboardControllerProvider =
     StateNotifierProvider<DashboardController, DashboardState>((ref) {
-  final service = ref.read(managerApiMockProvider);
+  final service = ref.read(managerApiProvider);
   return DashboardController(service);
   
 });
